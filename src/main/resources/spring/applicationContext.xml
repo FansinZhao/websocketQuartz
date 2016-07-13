@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd ">
+    <context:annotation-config/>
+
+    <!-- spring的属性加载器，加载properties文件中的属性 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:prop/webSocket.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="utf-8"/>
+    </bean>
+    <!--spring context-->
+    <bean id="SpringBeanFactory" class="com.fansin.spring.websocket.SpringBeanFactory"/>
+
+    <!-- spring 模块化配置 -->
+    <!-- webSocket 配置文件 -->
+    <import resource="classpath:spring/webSocketConf.xml"/>
+    <!-- timerConf 配置文件 -->
+    <import resource="classpath:spring/timerConf.xml"/>
+
+
+</beans>

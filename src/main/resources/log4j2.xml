@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 以下配置只作为常用模板，具体的配置还需要根据业务需求来设定-->
+<Configuration name="websocket">
+    <Properties>
+        <!-- 这里是编写文件名，服务名或其它 -->
+        <Property name="service">websocket</Property>
+        <Property name="filename">logs/websocket.log</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} [%-5t] %-5p %-20c %M() %L - %m%n"/>
+        </Console>
+        <!--天分割-->
+        <RollingFile name="RollingFile" fileName="${filename}" filePattern="${filename}.%d{yyyy-MM-dd}.log"
+                     bufferedIO="true" bufferSize="10000">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} [%-5t] %-5p %-20c %M() %L - %m%n"/>
+            <Policies>
+                <!-- 按时间分割 interval为时间间隔-->
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="com.google" level="INFO"/>
+        <logger name="org" level="INFO"/>
+        <Root level="trace">
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
